@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package pb;
+option go_package = ".;pb";
+
+message BankAccount {
+  string id = 1;
+  string name = 2;
+  float  bankBalance = 4;
+}
+
+message AccountResulStream {
+  string status = 1;
+  BankAccount bankAccount = 2;
+}
+
+message Accounts {
+  repeated BankAccount bankAccount = 1;
+}
+
+service BankAccountService {
+  rpc AddBankAccount (BankAccount) returns (BankAccount);
+  rpc AddBankAccountStream (BankAccount) returns (stream AccountResulStream);
+  rpc AddAccounts (stream BankAccount) returns (Accounts);
+  rpc AddAccountStreamBoth (stream BankAccount) returns (stream AccountResulStream);
+}
